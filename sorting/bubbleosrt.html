@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        align-items: flex-end;
+      }
+      .box {
+        border: 1px solid red;
+        margin: 0 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Data structure visualization</h1>
+    <div class="container" id="container"></div>
+    <script>
+      let arr = [64, 34, 25, 12, 22, 11, 90];
+      let sum = 0;
+      for (let item of arr) sum += item;
+      let container = document.getElementById("container");
+
+      let n = arr.length;
+      function sleep(millis){
+          return new Promise((resolve)=>{
+              setTimeout(resolve,millis)
+          })
+      }
+      async function demo(){
+          console.log("Taking a break");
+          for (let i = 0; i < n - 1; i++) {
+          for (let j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+              let temp = arr[j];
+              arr[j] = arr[j + 1];
+              arr[j + 1] = temp;
+            }
+            // await sleep(1000)
+            await new Promise((resolve)=>setTimeout(resolve,2000));
+            displayArray(arr);
+            console.log(arr)
+        }
+        
+      }
+          console.log("5 second later");
+      }
+
+      demo();
+     
+
+      function displayArray(arr) {
+        container.innerHTML = "";
+        for (let item of arr) {
+          let temp_div = document.createElement("div");
+          let height = (item / sum) * 1000;
+          temp_div.style.width = "30px";
+          temp_div.style.height = `${height}px`;
+          temp_div.classList.add("box");
+          container.appendChild(temp_div);
+        }
+      }
+    </script>
+  </body>
+</html>

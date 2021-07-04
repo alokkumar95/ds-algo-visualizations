@@ -11,14 +11,22 @@
         align-items: flex-end;
       }
       .box {
-        border: 1px solid red;
+        /* border: 1px solid red; */
         margin: 0 5px;
+        background-color: antiquewhite;
+      }
+      .green_box{
+        margin: 0 5px;
+        background-color: aqua;
       }
     </style>
   </head>
   <body>
     <h1>Data structure visualization</h1>
+    <input type="text" id="input">
+    <br />
     <div class="container" id="container"></div>
+    
     <script>
       let arr = [64, 34, 25, 12, 22, 11, 90];
       let sum = 0;
@@ -41,29 +49,42 @@
               arr[j + 1] = temp;
             }
             // await sleep(1000)
-            await new Promise((resolve)=>setTimeout(resolve,2000));
-            displayArray(arr);
+            await new Promise((resolve)=>setTimeout(resolve,1000));
+            displayArray(arr,j);
             console.log(arr)
         }
         
       }
           console.log("5 second later");
+          console.log("hh")
+      let greenBoxes=document.getElementsByClassName('green_box');
+       let green=Array.from(greenBoxes)
+      for(let item of green) {
+        console.log("------------")
+        item.classList.remove('green_box');
+      }
       }
 
       demo();
      
 
-      function displayArray(arr) {
+      function displayArray(arr,j) {
         container.innerHTML = "";
-        for (let item of arr) {
+        for (let i=0;i<arr.length;i++) {
           let temp_div = document.createElement("div");
-          let height = (item / sum) * 1000;
-          temp_div.style.width = "30px";
+          let height = (arr[i] / sum) * 1000;
+          temp_div.innerHTML=`<h1>${arr[i]}</h1>`
+          temp_div.style.width = "50px";
           temp_div.style.height = `${height}px`;
+          if(i==j||i==j+1){
+            temp_div.classList.add("green_box");
+          }
           temp_div.classList.add("box");
+        
           container.appendChild(temp_div);
         }
       }
+     
     </script>
   </body>
 </html>
